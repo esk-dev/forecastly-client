@@ -3,7 +3,7 @@ name: Lint, Build and Test
 on:
   push:
     branches-ignore:
-      - main
+      - master
   pull_request:
     branches:
       - develop
