@@ -49,11 +49,17 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push image
+      - name: Build and push Angular image
         run: |
-          docker build -t forecastly-client:prod .
-          docker tag forecastly-client:prod ${{ secrets.DOCKER_USERNAME }}/forecastly-client:prod
-          docker push ${{ secrets.DOCKER_USERNAME }}/forecastly-client:prod
+          docker build -t forecastly-client:latest .
+          docker tag forecastly-client:latest ${{ secrets.DOCKER_USERNAME }}/forecastly-client:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/forecastly-client:latest
+
+      - name: Build and push Nginx image
+        run: |
+          docker build -t my-nginx ./nginx
+          docker tag my-nginx:latest ${{ secrets.DOCKER_USERNAME }}/my-nginx:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-nginx:latest
 
       - name: Deploy to Docker Swarm
         uses: appleboy/ssh-action@master
@@ -62,4 +68,4 @@ jobs:
           username: ${{ secrets.SWARM_USERNAME }}
           password: ${{ secrets.SWARM_PASSWORD }}
           script: |
-            docker service update --image forecastly-client:prod frontend
+            docker stack deploy -c docker-compose.yml frontend
