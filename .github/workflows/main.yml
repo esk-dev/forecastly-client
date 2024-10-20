@@ -68,5 +68,4 @@ jobs:
           username: ${{ secrets.SWARM_USERNAME }}
           password: ${{ secrets.SWARM_PASSWORD }}
           script: |
-            rsync -avz docker-compose.yml ${{ secrets.SWARM_USERNAME }}@${{ secrets.SWARM_HOST }}:/home/${{ secrets.SWARM_USERNAME }}/
             docker stack deploy -c docker-compose.yml frontend
