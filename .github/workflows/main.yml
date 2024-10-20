@@ -55,12 +55,6 @@ jobs:
           docker tag forecastly-client:latest ${{ secrets.DOCKER_USERNAME }}/forecastly-client:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/forecastly-client:latest
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
       - name: Build and push Nginx image
         run: |
           docker build -t my-nginx ./nginx
@@ -74,7 +68,5 @@ jobs:
           username: ${{ secrets.SWARM_USERNAME }}
           password: ${{ secrets.SWARM_PASSWORD }}
           script: |
-            cat > docker-compose.yml << EOF
-            $(cat docker-compose.yml)
-            EOF
+            rsync -avz docker-compose.yml ${{ secrets.SWARM_USERNAME }}@${{ secrets.SWARM_HOST }}:/home/${{ secrets.SWARM_USERNAME }}/
             docker stack deploy -c docker-compose.yml frontend

@@ -1,7 +1,7 @@
 version: '3'
 services:
   angular-app:
-    image: frontend:latest
+    image: forecastly-client:latest
     deploy:
       replicas: 3
       restart_policy:
@@ -9,9 +9,9 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
-      rollback:
-        parallelism: 2
-        delay: 10s
+#      rollback_config:
+#        parallelism: 2
+#        delay: 10s
 
   nginx:
     image: my-nginx:latest
@@ -26,6 +26,6 @@ services:
       update_config:
         parallelism: 1
         delay: 10s
-      rollback_config:
-        parallelism: 1
-        delay: 10s
+#      rollback_config:
+#        parallelism: 1
+#        delay: 10s
