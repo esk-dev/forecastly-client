@@ -51,7 +51,7 @@ jobs:
 
       - name: Build and push Frontend
         run: |
-          docker build -t ${{ secrets.DOCKER_IMAGE }}/prod .
+          docker build -t ${{ secrets.DOCKER_IMAGE }}:prod .
           docker tag  ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE }}:prod
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE }}:prod
 
