@@ -16,6 +16,6 @@ RUN cp -r dist/* /var/www/html
 
 FROM nginx:latest
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=BUILD /var/www/html /usr/share/nginx/html
