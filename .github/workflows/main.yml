@@ -62,4 +62,4 @@ jobs:
           username: ${{ secrets.SWARM_USERNAME }}
           password: ${{ secrets.SWARM_PASSWORD }}
           script: |
-            docker stack deploy -c docker-compose.yml
+            docker stack deploy -c docker-compose.yml server
